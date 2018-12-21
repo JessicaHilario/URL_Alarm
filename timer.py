@@ -7,14 +7,17 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import application
+from application import *
 import TimeCounter
 import time
 import webbrowser
+from timer import *
+
+
 
 class Ui_TimerWindow1(object):
     def setup(self, TimerWindow):
-        
+        self.TimerWindow = TimerWindow
         TimerWindow.setObjectName("TimerWindow")
         TimerWindow.resize(731, 600)
         self.T_centralwidget = QtWidgets.QWidget(TimerWindow)
@@ -108,13 +111,13 @@ class Ui_TimerWindow1(object):
         minute_in_sec = self.T_timeEdit.time().minute()*60
         total_sec = hour_in_sec + minute_in_sec + self.T_timeEdit.time().second()
         #Decrease the total until it reaches 0
-        while total_sec >= 0:
+        while total_sec > 0:
             time.sleep(1)
             total_sec -= 1
         #Then open the browser
         webbrowser.open(self.T_URLTextBox.toPlainText())
-        self.T_time.setText("off")
-        self.T_URLTextBoxt.clear()
+#        self.T_time.setText("off")
+#        self.T_URLTextBoxt.clear()
 
     def alarm_function(self):
         """Opens up a new window for alarm and hides timer"""
@@ -122,7 +125,7 @@ class Ui_TimerWindow1(object):
         self.dp=Ui_MainWindow()
         self.dp.setupUi(self.window)
         self.window.show()
-        MainWindow.hide()
+        self.TimerWindow.hide()
 
 
 if __name__ == "__main__":

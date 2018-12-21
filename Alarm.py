@@ -8,10 +8,10 @@ import os
 #todo proceaa txt filw with days
 class Alarm():
     # keeps track of the last index in the respective heaps
-    timerInstanceNumber = 0
-    alarmInstanceNumber = 0
+
     def __init__(self):
-        
+        Alarm.timerInstanceNumber = 0
+        Alarm.alarmInstanceNumber = 0
         # holds active timer threads
         self.timerInstances = []
         # holds active alarm threads
@@ -44,7 +44,7 @@ class Alarm():
         #self.play_alarm(self.timerInstances[0].url)
         # re heapify, move the top value down
         heapq.heappop(self.alarmInstances)
-        Alarm.timerInstanceNumber -= 1
+        Alarm.alarmInstanceNumber -= 1
         pass
     
     def updateTimer(self, arg):

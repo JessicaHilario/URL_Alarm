@@ -12,10 +12,15 @@ import os
 from timer import *
 from URLError import *
 from ModifyAlarm import *
+import timer
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        from timer import Ui_TimerWindow1
+        import timer
+        self.MainWindow = MainWindow
+        
         #create an alarm instance
         self.Alarm = Alarm.Alarm()
 
@@ -196,7 +201,7 @@ class Ui_MainWindow(object):
         print(days)
 
         url = self.textEdit.toPlainText()
-        if (("http://www." in url) or ("https://www." in url)):
+        if (("http://" in url) or ("https://" in url)):
             """If it does exist, set the alarm and store it in the text screen"""
             self.Alarm.set_alarm(days, self.textEdit.toPlainText(), self.timeEdit.time().hour(),
                                                                     self.timeEdit.time().minute(), 0, 24)
@@ -217,11 +222,12 @@ class Ui_MainWindow(object):
 
     def timer_function(self):
         """Opens up a new window for timer and hides alarm"""
+        self.Ui_TimerWindow1 = timer.Ui_TimerWindow1()
         self.window=QtWidgets.QMainWindow()
-        self.dp=Ui_TimerWindow1()
+        self.dp=self.Ui_TimerWindow1
         self.dp.setup(self.window)
         self.window.show()
-        MainWindow.hide()
+        self.MainWindow.hide()
 
     def modify_alarm(self):
         """Opens up a new window for modify"""
